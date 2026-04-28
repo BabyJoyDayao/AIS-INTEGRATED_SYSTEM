@@ -32,7 +32,7 @@ export const createUser = async (userProfile, email, password) =>{
     const [user] = await pool.query("SELECT email FROM tbluser WHERE email = ?",[email]);
     if(user.length === 1){
         const error = new Error(`The email ${email} is already used.`);
-        error.statusCode = 400
+        error.statusCode = 400;
         throw error;
     }
     const salt = bcrypt.genSaltSync(10);
@@ -47,16 +47,16 @@ export const createUser = async (userProfile, email, password) =>{
 try {
     
     const response = await fetch(
-        `https://ais-simulated-legacy.onrender.com/api/students`, {
+        "https://ais-simulated-legacy.onrender.com/api/students", {
             method: "POST" ,
             headers: {
-                'Content-Type' : 'application/json'
+                "Content-Type" : "application/json"
             },
             body: JSON.stringify(userProfile)
         });
          if (!response.ok) {
             const errorText = await response.text();
-            throw new Error(`External API error: ${response.status} - ${errorText}`);
+            throw new Error("External API error: ${response.status} - ${errorText}");
         }
         await connection.query(
             "INSERT INTO tbluser(email, password) VALUES(?, ?)",

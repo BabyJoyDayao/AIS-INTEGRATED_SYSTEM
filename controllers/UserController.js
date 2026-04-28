@@ -10,6 +10,7 @@ export const register = async (req, res) =>{
         email,
         password} = req.body;
 
+
     try{
         const userProfile = {name,birthdate,address,program,studentStatus};
         const user = await UserModel.createUser(userProfile, email, password);
